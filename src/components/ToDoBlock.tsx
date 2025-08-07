@@ -19,7 +19,23 @@ function ToDo() {
 			<h1 className="text-center text-gray-50 text-2xl font-bold pb-4 border-b-1 border-b-gray-700">
 				To-Do List
 			</h1>
-			<div className="flex flex-row gap-2 items-center">
+			<form
+				method="get"
+				className="flex flex-row gap-2 items-center"
+				onSubmit={(e) => {
+					e.preventDefault();
+
+					const inputField = document.getElementById(
+						"add-item-field"
+					) as HTMLInputElement;
+					const item = inputField.value.trim();
+
+					if (!item) return;
+
+					addItem(item);
+					inputField.value = "";
+				}}
+			>
 				<input
 					type="text"
 					name="add-item-field"
@@ -27,22 +43,11 @@ function ToDo() {
 					className="flex-1 p-1 text-gray-50 rounded-md border border-gray-600 focus:outline focus:outline-gray-100"
 				/>
 				<input
-					type="button"
+					type="submit"
 					value="Add Task"
 					className="p-1 rounded-md w-1/4 transition-all duration-50 bg-sky-400 text-white hover:bg-sky-500 active:scale-95 active:bg-sky-600"
-					onClick={() => {
-						const inputField = document.getElementById(
-							"add-item-field"
-						) as HTMLInputElement;
-						const item = inputField.value.trim();
-
-						if (!item) return;
-
-						addItem(item);
-						inputField.value = "";
-					}}
 				/>
-			</div>
+			</form>
 			<ul className="flex flex-col gap-1.5 overflow-y-scroll pr-2.5">
 				{items.map((item) => (
 					<div key={item.id} className="flex flex-row items-start gap-2">
@@ -66,7 +71,8 @@ function ToDo() {
 						<button
 							className=""
 							onClick={() => {
-								setItems(items.filter((_, i) => i !== item.id));
+								console.log("Removing item:", item.id);
+								setItems(items.filter((i) => i.id !== item.id));
 							}}
 						>
 							<img
