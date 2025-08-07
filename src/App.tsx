@@ -1,8 +1,11 @@
 import './App.css'
+import ToDo from './components/ToDoBlock'
 
 function App() {
 	return (
-		<h1>Hello world</h1>
+		<main className='bg-gray-900 h-screen w-screen flex flex-col items-center gap-4 pt-8'>
+			<ToDo />
+		</main>
 	)
 }
 
